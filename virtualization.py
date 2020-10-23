@@ -928,7 +928,7 @@ def main():
     # Sub test options
     uvt_kvm_test_parser.add_argument(
         '-i', '--image', type=str, default=None)
-    uvt_kvm_parser.set_defaults(func=test_uvtkvm)
+    uvt_kvm_test_parser.set_defaults(func=test_uvtkvm)
 
     lxd_test_parser.add_argument(
         '--template', type=str, default=None)
