@@ -645,27 +645,7 @@ class UVTKVMTest(object):
                                 .format(self.name)):
             return False
 
-        self.cleanup()
         return True
-
-
-def test_uvtkvm(args):
-    logging.debug("Executing UVT KVM Test")
-    image = ""
-    source = ""
-
-    # First in priority are environment variables.
-    if 'UVT_IMAGE_OR_SOURCE' in os.environ:
-        image = os.environ['UVT_IMAGE_OR_SOURCE']
-
-    if args.image:
-        image = args.image
-
-    uvt_test = UVTKVMTest(image)
-    uvt_test.get_image_or_source()
-    result = uvt_test.start()
-
-    sys.exit(result)
 
 
 class LXDTest(object):
@@ -831,6 +811,31 @@ class LXDTest(object):
             return False
 
         return True
+
+
+def test_uvtkvm(args):
+    logging.debug("Executing UVT KVM Test")
+    image = ""
+    source = ""
+
+    # First in priority are environment variables.
+    if 'UVT_IMAGE_OR_SOURCE' in os.environ:
+        image = os.environ['UVT_IMAGE_OR_SOURCE']
+
+    if args.image:
+        image = args.image
+
+    uvt_test = UVTKVMTest(image)
+    uvt_test.get_image_or_source()
+    result = uvt_test.start()
+    uvt_test.cleanup()
+
+    if result:
+        print("PASS: VM was succssfully started and checked")
+        sys.exit(0)
+    else:
+        print("FAIL: VM was not started and/or checked")
+        sys.exit(1)
 
 
 def test_lxd(args):
