@@ -619,7 +619,7 @@ class UVTKVMTest(object):
 
         # Create vm
         logging.debug("Creating VM")
-        cmd = ('uvt-kvm create {}'.format(self.name))
+        cmd = ('uvt-kvm create {} arch={}'.format(self.name, self.arch))
 
         if self.image.find(".img") > 0:
             cmd = cmd + " --backing-image-file {} ".format(self.image)
